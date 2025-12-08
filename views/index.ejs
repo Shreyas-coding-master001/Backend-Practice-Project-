@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Files Handling</h1>
+    <form action="/create" method="post">
+        <input type="text" name="fileName" placeholder="Enter File Name..."/>
+        <textarea name="Description" id="" placeholder="Enter Details to add to the file"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <% let a = false%>
+    <div class="tasks">
+        <% if(files.length > 0){ %>
+            <% files.forEach((file)=>{ %>
+                <div class="task">
+                    <h2><%= file %></h2>
+                    <div class="oneLine">
+                        <a href="/Files/<%= file %>">Read more</a>
+                        <button onclick="window.location.href='/edit/<%=file%>'">Edit file</button>
+                    </div>
+                </div>
+           <% }) %>
+        <% } else{ %>
+            <h2>No File Yet!!</h2>
+       <% }%>
+       
+
+
+    </div>
+</body>
+</html>
