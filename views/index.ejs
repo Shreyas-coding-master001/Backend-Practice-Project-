@@ -3,34 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practice</title>
-    <link rel="stylesheet" href="/style.css">
+    <title>DataBase</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            height: 100%;
+            width: 100%;
+            color: whitesmoke;
+            font-family: system-ui, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        body{
+            background-color: rgba(0, 0, 0, 0.725);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+        form{
+            text-align: center;
+            background-color: rgb(72, 2, 2);
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        a{
+            position: absolute;
+            top:20px;
+            left:20px;
+            text-decoration: none;
+            color: lightblue;
+        }
+    </style>
 </head>
 <body>
-    <h1>Files Handling</h1>
-    <form action="/create" method="post">
-        <input type="text" name="fileName" placeholder="Enter File Name..."/>
-        <textarea name="Description" id="" placeholder="Enter Details to add to the file"></textarea>
+    <a href="/read">➡️ Read Data</a>
+
+   <form action="/create" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+        <label for="image">Image url :</label>
+        <input type="text" id="image" name="image" required/><br><br>
         <button type="submit">Submit</button>
-    </form>
-    <% let a = false%>
-    <div class="tasks">
-        <% if(files.length > 0){ %>
-            <% files.forEach((file)=>{ %>
-                <div class="task">
-                    <h2><%= file %></h2>
-                    <div class="oneLine">
-                        <a href="/Files/<%= file %>">Read more</a>
-                        <button onclick="window.location.href='/edit/<%=file%>'">Edit file</button>
-                    </div>
-                </div>
-           <% }) %>
-        <% } else{ %>
-            <h2>No File Yet!!</h2>
-       <% }%>
-       
-
-
-    </div>
+   </form>
 </body>
 </html>

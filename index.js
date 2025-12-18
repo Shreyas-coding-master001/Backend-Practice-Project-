@@ -1,46 +1,41 @@
 const express = require("express");
+const userSchema = require("./modules/user");
 const app = express();
-const path = require("path");
-const fs = require("fs");
-
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname,"public")));
-app.use(express.static(path.join(__dirname, "styleSheet")));
+let port = 3000;
 
 app.set("view engine","ejs");
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
-app.get("/",function(req,res){
-    fs.readdir("./Files",(err,data)=>{
-        if(err) console.error(err);
-        else res.render("index",{files: data})
-    })
+app.get("/",(req,res)=>{
+    res.render("index");
+});
+
+app.get("/read",async (req,res)=>{
+
+    let userdata = await userSchema.find({});
+
+    res.render("read",{userdata});
+    // res.send(userdata);
 });
 
 app.post("/create",(req,res)=>{
-    fs.writeFile(`./Files/${req.body.fileName}.txt`,`${req.body.Description}`,(err)=>{
-        if(err) console.error(err);
-        else res.redirect("/");
-    });
+    let {name,age,image} = req.body;
+
+    userSchema.create({
+        name: name,
+        age: age,
+        image: image
+    })
+    
+    res.redirect("/read");
 });
 
-app.get("/Files/:filename",(req,res)=>{
-    fs.readFile(`./Files/${req.params.filename}`,'utf-8',(err,data)=>{
-        if(err) console.error(err.message);
-        else res.render("show",{file: data, fileName: req.params.filename});
-    });
+app.get("/delete/:id",async (req,res)=>{
+    let userDelete = await userSchema.deleteOne({_id: req.params.id});
+
+    res.redirect("/read");
 });
 
-app.get("/edit/:filename",(req,res)=>{
-    res.render("Edit",{file: req.params.filename})
-});
-
-app.post("/Edit/:filename",(req,res)=>{
-    fs.rename(`./Files/${req.params.filename}`,`./Files/${req.body.Renamed}`,(err)=>{
-        if(err) console.error(err.message);
-        else res.redirect("/");
-    });
-});
-
-app.listen(3000,()=>console.log("Server is running!!"));
+app.listen(port,()=>console.log(`Server is running at ${port}`));
