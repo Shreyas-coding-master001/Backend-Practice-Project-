@@ -40,7 +40,7 @@
             height: 350px;
             border-radius: 20px;
             background-color: gray;
-            padding: 10px;
+            padding: 20px;
             
         }
 
@@ -62,6 +62,10 @@
             color: red;
             padding: 20px;
         }
+
+        .details a:nth-child(2){
+            color: lightgreen;
+        }
     </style>
 </head>
 <body>
@@ -76,7 +80,10 @@
                 <div class="details">
                     <h2>Username: <%= user.name %></h2>
                     <h3>Age: <%= user.age %></h3>
-                    <a href="/delete/<%= user._id %>">Delete</a>
+                    <div class="Links">
+                        <a href="/delete/<%= user._id %>">Delete</a>
+                        <a href="/edit/<%=user._id%>">Edit</a>
+                    </div>
                 </div>
             </div>
         <% }); %>

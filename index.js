@@ -32,6 +32,20 @@ app.post("/create",(req,res)=>{
     res.redirect("/read");
 });
 
+app.get("/edit/:id",async (req,res)=>{
+    let user = await userSchema.findOne({_id: req.params.id});
+    res.render("edit",{user});
+    
+});
+app.post("/edit/user/:id",async (req,res)=>{
+    let {name,age,image} = req.body;
+
+    await userSchema.findOneAndUpdate({_id: req.params.id},{name:name,age:age,image:image});
+
+    res.redirect("/read");
+    
+});
+
 app.get("/delete/:id",async (req,res)=>{
     let userDelete = await userSchema.deleteOne({_id: req.params.id});
 
