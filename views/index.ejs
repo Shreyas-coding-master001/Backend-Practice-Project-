@@ -3,53 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataBase</title>
+    <title>Post</title>
     <style>
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
         }
         html,body{
-            height: 100%;
             width: 100%;
+            height: 100%;
             color: whitesmoke;
-            font-family: system-ui, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: black;
         }
-        body{
-            background-color: rgba(0, 0, 0, 0.725);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
+        section{
+            margin: 1rem;
+            padding: 1rem;
+            border: 3px solid whitesmoke;
         }
-        form{
-            text-align: center;
-            background-color: rgb(72, 2, 2);
-            padding: 20px;
+        h2{
+            margin-bottom: 1rem;
+        }
+        form input{
+            border-radius: 5px;
+            padding: 0.3rem;
+        }
+        form button{
+            padding: 0.3rem;
+            background-color: red;
+            border: none;
             border-radius: 20px;
+            color: whitesmoke;
+        }
+        #login button{
+            background-color: royalblue;
+        }
+        #signup button{
+            background-color: red;
+        }
+        #signup button:active{
+            scale: 0.95;
         }
 
-        a{
-            position: absolute;
-            top:20px;
-            left:20px;
-            text-decoration: none;
-            color: lightblue;
-        }
+
     </style>
 </head>
 <body>
-    <a href="/read">➡️ Read Data</a>
-
-   <form action="/create" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required><br><br>
-        <label for="image">Image url :</label>
-        <input type="text" id="image" name="image" required/><br><br>
-        <button type="submit">Submit</button>
-   </form>
+    <main>
+        <section id="signup">
+            <h2>Sign-Up</h2>
+            <form action="/signup" method="post">
+                <input type="text" placeholder="name..." name="username">
+                <input type="email" placeholder="email..." name="email">
+                <input type="password" name="password" placeholder="password">
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+        <section id="login">
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                <input type="email" placeholder="email..." name="email" required>
+                <input type="password" name="password" placeholder="password" required>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

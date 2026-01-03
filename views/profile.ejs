@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            color: whitesmoke;
+            background-color: black;
+            padding: 0.5rem;
+        }
+        h2{
+            margin-bottom: 0.5rem;
+        }
+        textarea{
+            resize: none;
+            height: 13vh;
+            width: 20vw;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        button{
+            display: block;
+            color: whitesmoke;
+            background-color: yellowgreen;
+            border: none;
+            padding: 0.5rem;
+            font-family: system-ui, -apple-system;
+            border-radius: 120px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        section{
+            margin: 3rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .post{
+            width: 40vw;
+            background-color: rgb(42, 41, 41);
+            padding: 1rem;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        a{
+            text-decoration: none;
+            color: royalblue;
+        }
+        .tags{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+        .LikeTag p{
+            color: gray;
+        }
+        .LikeButton{
+            color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome, <%= user.username %></h2>
+    <h2>Create a Post : </h2>
+    <form action="/posts/<%=user._id%>" method="post">
+        <textarea id="" placeholder="whats on your mind?" name="content"></textarea>
+        <button type="submit">Create</button>
+    </form>
+
+    <br><hr>
+    <section id="Posts">
+        <% user.posts.forEach(function(post){ %>
+            <div class="post">
+                <h3>@<%= user.username %></h3>
+                <h4><%= post.content %></h4>
+                <div class="tags">
+                    <div class="LikeTag">
+                        <a href="/like/<%= post._id %>" class="LikeButton"><%= post.LikedAcc.indexOf(user._id) === -1?"Like": "Unlike"%></a>
+                        <p><%=post.LikedAcc.length%></p>
+                    </div>
+                    <a href="/edit/<%= post._id%>">Edit</a>
+                </div>
+            </div>
+        <% })%>
+    </section>
+</body>
+</html>
